@@ -59,7 +59,6 @@ class UserAuthController {
       });
     }
   }
-
   async alldata(req, res) {
     try {
       const eqdata = await InventoryModel.find();
@@ -91,14 +90,14 @@ class UserAuthController {
   }
   async gt(req, res) {
     try {
-      const eqdata = await InventoryModel.find({
+      const gtdata = await InventoryModel.find({
         price: { $gt: "6000" },
       });
 
       return res.status(httpStatusCode.Ok).json({
         status: true,
         message: "inventory get Successfully",
-        data: eqdata,
+        data: gtdata,
       });
     } catch (error) {
       console.log(error);
@@ -107,7 +106,7 @@ class UserAuthController {
   async lt(req, res) {
     try {
       const ltdata = await InventoryModel.find({
-        price: { $gt: "60000" },
+        price: { $lt: "60000" },
       });
 
       return res.status(httpStatusCode.Ok).json({
@@ -122,7 +121,7 @@ class UserAuthController {
   async gte(req, res) {
     try {
       const gtedata = await InventoryModel.find({
-        price: { $gt: "60000" },
+        price: { $gte: "60000" },
       });
 
       return res.status(httpStatusCode.Ok).json({
@@ -137,7 +136,7 @@ class UserAuthController {
   async lte(req, res) {
     try {
       const ltedata = await InventoryModel.find({
-        price: { $gt: "6000" },
+        price: { $lte: "6000" },
       });
 
       return res.status(httpStatusCode.Ok).json({
@@ -152,7 +151,7 @@ class UserAuthController {
   async in(req, res) {
     try {
       const indata = await InventoryModel.find({
-        price: { $gt: "6000" },
+        price: { $in: "6000" },
       });
 
       return res.status(httpStatusCode.Ok).json({
@@ -167,7 +166,7 @@ class UserAuthController {
   async ne(req, res) {
     try {
       const nedata = await InventoryModel.find({
-        price: { $gt: "6000" },
+        price: { $ne: "6000" },
       });
 
       return res.status(httpStatusCode.Ok).json({
@@ -182,7 +181,7 @@ class UserAuthController {
   async nin(req, res) {
     try {
       const nindata = await InventoryModel.find({
-        price: { $gt: "6000" },
+        price: { $nin: "6000" },
       });
 
       return res.status(httpStatusCode.Ok).json({
