@@ -153,7 +153,39 @@ class EmployeeController {
   async type(req, res) {
     try {
       const data = await EmployeeModel.find({
-        age: { $type: "double" },
+        age: { $type: "int" },
+      });
+
+      return res.status(httpStatusCode.Ok).json({
+        status: true,
+        message: "employee get Successfully",
+        total: data.length,
+        data: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async mod(req, res) {
+    try {
+      const data = await EmployeeModel.find({
+        salary: { $mod: [2000, 1000] },
+      });
+
+      return res.status(httpStatusCode.Ok).json({
+        status: true,
+        message: "employee get Successfully",
+        total: data.length,
+        data: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async regex(req, res) {
+    try {
+      const data = await EmployeeModel.find({
+        age: { $type: "int" },
       });
 
       return res.status(httpStatusCode.Ok).json({

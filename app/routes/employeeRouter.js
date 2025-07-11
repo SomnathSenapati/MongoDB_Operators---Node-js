@@ -11,5 +11,6 @@ router.get("/nor", EmployeeController.nor);
 router.get("/not", EmployeeController.not);
 router.get("/exists", EmployeeController.exists);
 router.get("/type", EmployeeController.type);
+router.get("/mod", EmployeeController.mod);
 
 module.exports = router;

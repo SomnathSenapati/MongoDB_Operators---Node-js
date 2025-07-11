@@ -13,5 +13,8 @@ router.get("/lte", inventoryController.lte);
 router.get("/in", inventoryController.in);
 router.get("/ne", inventoryController.ne);
 router.get("/nin", inventoryController.nin);
+router.get("/regex", inventoryController.regex);
+router.get("/text", inventoryController.text);
+router.get("/where", inventoryController.where);
 
 module.exports = router;

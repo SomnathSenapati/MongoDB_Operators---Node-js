@@ -1,6 +1,6 @@
 const httpStatusCode = require("../helper/httpStatusCode");
-const jwt = require("jsonwebtoken");
 const InventoryModel = require("../model/inventory");
+const PaymentModel = require("../model/payment");
 
 class UserAuthController {
   async AddInventory(req, res) {
@@ -193,7 +193,59 @@ class UserAuthController {
       console.log(error);
     }
   }
+  async regex(req, res) {
+    try {
+      const data = await InventoryModel.find({
+        name: { $regex: ".packed." },
+      });
+
+      return res.status(httpStatusCode.Ok).json({
+        status: true,
+        message: "employee get Successfully",
+        total: data.length,
+        data: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async text(req, res) {
+    try {
+      const data = await InventoryModel.find({
+        $text: { $search: "Non-Fat" },
+      });
+
+      return res.status(httpStatusCode.Ok).json({
+        status: true,
+        message: "employee get Successfully",
+        total: data.length,
+        data: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async where(req, res) {
+    try {
+      const data = await PaymentModel.find({
+        $where: function () {
+          var value =
+            isString(this._id) &&
+            hex_md5(this._id) == "6870a606e2e6f2013bbfcc69";
+          return value;
+        },
+      });
+
+      return res.status(httpStatusCode.Ok).json({
+        status: true,
+        message: "employee get Successfully",
+        total: data.length,
+        data: data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = new UserAuthController();
- 

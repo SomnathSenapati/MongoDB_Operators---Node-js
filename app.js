@@ -20,4 +20,7 @@ app.use("/api/inventory", inventoryRouter);
 const employeeRouter = require("./app/routes/employeeRouter");
 app.use("/api/employee", employeeRouter);
 
+const paymentRouter = require("./app/routes/paymentRouter");
+app.use("/api/payment", paymentRouter);
+
 module.exports = app;
