@@ -1,11 +1,10 @@
 const httpStatusCode = require("../helper/httpStatusCode");
-const jwt = require("jsonwebtoken");
-const InventoryModel = require("../model/inventory");
+const EmployeeModel = require("../model/employee");
 
-class UserAuthController {
-  async AddInventory(req, res) {
+class EmployeeController {
+  async AddEmployee(req, res) {
     try {
-      const { name, price, quantity, caregory } = req.body;
+      const { name, age, role, salary } = req.body;
       // if (!name || !email || !password || !phone) {
       //   return res.status(httpStatusCode.BadRequest).json({
       //     status: false,
@@ -37,17 +36,17 @@ class UserAuthController {
 
       // const hashed = await hashedPassword(password);
 
-      const inventory = new InventoryModel({
+      const employee = new EmployeeModel({
         name,
-        price,
-        quantity,
-        caregory,
+        age,
+        role,
+        salary,
       });
-      const data = await inventory.save();
+      const data = await employee.save();
 
       return res.status(httpStatusCode.Create).json({
         status: true,
-        message: "inventory Add Successfully",
+        message: "employee Add Successfully",
         data: data,
       });
     } catch (error) {
@@ -61,11 +60,11 @@ class UserAuthController {
   }
   async alldata(req, res) {
     try {
-      const AllData = await InventoryModel.find();
+      const AllData = await EmployeeModel.find();
 
       return res.status(httpStatusCode.Ok).json({
         status: true,
-        message: "inventory get Successfully",
+        message: "employee get Successfully",
         total: AllData.length,
         data: AllData,
       });
@@ -73,121 +72,95 @@ class UserAuthController {
       console.log(error);
     }
   }
-  async eq(req, res) {
+  async and(req, res) {
     try {
-      const eqdata = await InventoryModel.find({
-        price: { $eq: "45999" },
+      const data = await EmployeeModel.find({
+        $and: [{ role: "Developer" }, { age: { $gte: 20, $lte: 30 } }],
       });
-
       return res.status(httpStatusCode.Ok).json({
         status: true,
-        message: "inventory get Successfully",
-        data: eqdata,
+        message: "employee get Successfully",
+        total: data.length,
+        data: data,
       });
     } catch (error) {
       console.log(error);
     }
   }
-  async gt(req, res) {
+  async or(req, res) {
     try {
-      const gtdata = await InventoryModel.find({
-        price: { $gt: "6000" },
+      const data = await EmployeeModel.find({
+        $or: [{ role: "Software Tester" }, { role: "System Architect" }],
       });
-
       return res.status(httpStatusCode.Ok).json({
         status: true,
-        message: "inventory get Successfully",
-        data: gtdata,
+        message: "employee get Successfully",
+        total: data.length,
+        data: data,
       });
     } catch (error) {
       console.log(error);
     }
   }
-  async lt(req, res) {
+  async nor(req, res) {
     try {
-      const ltdata = await InventoryModel.find({
-        price: { $lt: "60000" },
+      const data = await EmployeeModel.find({
+        $nor: [{ role: "Senior Cashier" }, { role: "Store Manager" }],
       });
 
       return res.status(httpStatusCode.Ok).json({
         status: true,
-        message: "inventory get Successfully",
-        data: ltdata,
+        message: "employee get Successfully",
+        total: data.length,
+        data: data,
       });
     } catch (error) {
       console.log(error);
     }
   }
-  async gte(req, res) {
+  async not(req, res) {
     try {
-      const gtedata = await InventoryModel.find({
-        price: { $gte: "60000" },
+      const data = await EmployeeModel.find({
+        age: { $not: { $gte: 25 } },
       });
 
       return res.status(httpStatusCode.Ok).json({
         status: true,
-        message: "inventory get Successfully",
-        data: gtedata,
+        message: "employee get Successfully",
+        total: data.length,
+        data: data,
       });
     } catch (error) {
       console.log(error);
     }
   }
-  async lte(req, res) {
+  async exists(req, res) {
     try {
-      const ltedata = await InventoryModel.find({
-        price: { $lte: "6000" },
+      const data = await EmployeeModel.find({
+        age: { $exists: true, $gte: 30 },
       });
 
       return res.status(httpStatusCode.Ok).json({
         status: true,
-        message: "inventory get Successfully",
-        data: ltedata,
+        message: "employee get Successfully",
+        total: data.length,
+        data: data,
       });
     } catch (error) {
       console.log(error);
     }
   }
-  async in(req, res) {
+  async type(req, res) {
     try {
-      const indata = await InventoryModel.find({
-        price: { $in: "6000" },
+      const data = await EmployeeModel.find({
+        age: { $type: "double" },
       });
 
       return res.status(httpStatusCode.Ok).json({
         status: true,
-        message: "inventory get Successfully",
-        data: indata,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  async ne(req, res) {
-    try {
-      const nedata = await InventoryModel.find({
-        price: { $ne: "6000" },
-      });
-
-      return res.status(httpStatusCode.Ok).json({
-        status: true,
-        message: "inventory get Successfully",
-        data: nedata,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  async nin(req, res) {
-    try {
-      const nindata = await InventoryModel.find({
-        price: { $nin: "6000" },
-      });
-
-      return res.status(httpStatusCode.Ok).json({
-        status: true,
-        message: "inventory get Successfully",
-        data: nindata,
+        message: "employee get Successfully",
+        total: data.length,
+        data: data,
       });
     } catch (error) {
       console.log(error);
@@ -195,5 +168,4 @@ class UserAuthController {
   }
 }
 
-module.exports = new UserAuthController();
- 
+module.exports = new EmployeeController();

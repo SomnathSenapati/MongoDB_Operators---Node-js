@@ -17,4 +17,7 @@ app.get("/", (req, res) => {
 const inventoryRouter = require("./app/routes/inventoryRouter");
 app.use("/api/inventory", inventoryRouter);
 
+const employeeRouter = require("./app/routes/employeeRouter");
+app.use("/api/employee", employeeRouter);
+
 module.exports = app;

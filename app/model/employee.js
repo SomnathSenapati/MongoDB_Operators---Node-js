@@ -1,21 +1,21 @@
 const mongoose = require("mongoose");
 
-const inventorySchema = new mongoose.Schema(
+const employeeSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
     },
-    price: {
+    age: {
       type: Number,
       required: true,
     },
-    quantity: {
+    role: {
       type: String,
       required: true,
     },
-    caregory: {
-      type: Array,
+    salary: {
+      type: Number,
       required: true,
     }
   },
@@ -24,5 +24,5 @@ const inventorySchema = new mongoose.Schema(
   }
 );
 
-const inventoryModel = mongoose.model("inventory", inventorySchema);
-module.exports = inventoryModel;
+const employeeModel = mongoose.model("employee", employeeSchema);
+module.exports = employeeModel;
